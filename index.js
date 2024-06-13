@@ -5,11 +5,11 @@ import createGenres from './src/createGenres.js';
 import createFileRoutes from './src/createExtFileRoutes.js';
 import createLanguages from './src/createLanguages.js';
 
-const browser = await chromium.launch({ headless: false });
+const browser = await chromium.launch({ headless: true });
 
 const page = await browser.newPage();
 
-for (let i = 1; i <= 359; i++) {
+for (let i = 1; i <= 42; i++) {
     await page.goto(`https://www.gamestorrents.fm/juegos-pc/page/${i}`);
 
     await page.waitForSelector('#home .w3l-movie-gride-agile div a');
@@ -58,8 +58,6 @@ for (let i = 1; i <= 359; i++) {
 
         const currentFileId = await createGame(gameArray);
 
-        console.log(currentFileId);
-
         for (let i = 0; i < genre.length; i++) {
             const gameGenreArray = [
                 genre[i],
@@ -88,6 +86,8 @@ for (let i = 1; i <= 359; i++) {
 
         await page.waitForLoadState('load');
     }
+
+    console.log('Página: ' + i);
 }
 
 await browser.close();
